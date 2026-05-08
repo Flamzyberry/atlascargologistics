@@ -110,6 +110,7 @@ export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
   [PaymentMethod.COD]: "Cash on Delivery",
   [PaymentMethod.POD]: "Payment on Delivery",
   [PaymentMethod.PREPAID]: "Prepaid",
+  [PaymentMethod.GIFT_CARD]: "Gift Card",
 };
 
 export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {

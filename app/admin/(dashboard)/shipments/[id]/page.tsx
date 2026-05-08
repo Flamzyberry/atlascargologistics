@@ -52,6 +52,7 @@ import { queryKeys } from "@/lib/query";
 import { updateStatusSchema, type UpdateStatusFormData } from "@/lib/validations";
 import { ShipmentStatus, Currency, PaymentMethod, PaymentStatus, ShipmentMode, ShipmentType, ConsignmentType, ServiceType } from "@/types";
 import { formatDateTime, formatDate, cn } from "@/lib/utils";
+import { PAYMENT_METHOD_LABELS, PAYMENT_STATUS_LABELS } from "@/config/shipment";
 
 const statusOptions = Object.values(ShipmentStatus).map((s) => ({
   value: s,
@@ -1002,13 +1003,13 @@ export default function ShipmentDetailPage() {
                         shipment.freightCharges.paymentStatus === "PAID" ? "text-green-600" :
                         shipment.freightCharges.paymentStatus === "PENDING" ? "text-yellow-600" : "text-red-600"
                       )}>
-                        {shipment.freightCharges.paymentStatus}
+                        {PAYMENT_STATUS_LABELS[shipment.freightCharges.paymentStatus as PaymentStatus] || shipment.freightCharges.paymentStatus}
                       </span>
                     </div>
                     {shipment.freightCharges.paymentMethod && (
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Payment Method</span>
-                        <span className="text-gray-900">{shipment.freightCharges.paymentMethod.replace(/_/g, " ")}</span>
+                        <span className="text-gray-900">{PAYMENT_METHOD_LABELS[shipment.freightCharges.paymentMethod as PaymentMethod] || shipment.freightCharges.paymentMethod}</span>
                       </div>
                     )}
                   </div>
@@ -1276,7 +1277,7 @@ export default function ShipmentDetailPage() {
                   className="w-full h-10 px-3 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {Object.values(PaymentMethod).map((m) => (
-                    <option key={m} value={m}>{m.replace(/_/g, " ")}</option>
+                    <option key={m} value={m}>{PAYMENT_METHOD_LABELS[m]}</option>
                   ))}
                 </select>
               </div>
@@ -1288,7 +1289,7 @@ export default function ShipmentDetailPage() {
                   className="w-full h-10 px-3 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {Object.values(PaymentStatus).map((s) => (
-                    <option key={s} value={s}>{s}</option>
+                    <option key={s} value={s}>{PAYMENT_STATUS_LABELS[s]}</option>
                   ))}
                 </select>
               </div>

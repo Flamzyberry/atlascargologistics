@@ -33,6 +33,7 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/lib/query";
 import { cn } from "@/lib/utils";
 import { COUNTRIES, getCountryByCode } from "@/config/countries";
+import { PAYMENT_METHOD_LABELS, PAYMENT_STATUS_LABELS } from "@/config/shipment";
 import { State } from "country-state-city";
 
 const steps = [
@@ -950,7 +951,7 @@ export default function NewShipmentPage() {
                           className="w-full h-10 px-3 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                           {Object.values(PaymentMethod).map((m) => (
-                            <option key={m} value={m}>{m.replace(/_/g, " ")}</option>
+                            <option key={m} value={m}>{PAYMENT_METHOD_LABELS[m]}</option>
                           ))}
                         </select>
                       </div>
@@ -962,7 +963,7 @@ export default function NewShipmentPage() {
                           className="w-full h-10 px-3 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                           {Object.values(PaymentStatus).map((s) => (
-                            <option key={s} value={s}>{s}</option>
+                            <option key={s} value={s}>{PAYMENT_STATUS_LABELS[s]}</option>
                           ))}
                         </select>
                       </div>

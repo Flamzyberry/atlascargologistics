@@ -83,6 +83,7 @@ export enum PaymentMethod {
   COD = "COD", // Cash on Delivery
   POD = "POD", // Payment on Delivery
   PREPAID = "PREPAID",
+  GIFT_CARD = "GIFT_CARD",
 }
 
 export enum PaymentStatus {
