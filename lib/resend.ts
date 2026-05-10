@@ -198,8 +198,8 @@ export async function sendStatusUpdateEmail(
   const statusColor = statusColors[status] || "#6b7280";
   const statusEmoji = statusEmojis[status] || "📍";
   const statusText = status.replace(/_/g, " ");
-  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
-  const trackingUrl = `${baseUrl}/track?code=${trackingCode}`;
+  const baseUrl = process.env.NEXTAUTH_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+  const trackingUrl = `${baseUrl}/track?code=${encodeURIComponent(trackingCode)}`;
 
   const subject = `${statusEmoji} Shipment ${trackingCode} Update: ${statusText} - ${companyName}`;
   const html = `

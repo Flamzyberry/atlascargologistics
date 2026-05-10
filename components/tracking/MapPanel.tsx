@@ -36,6 +36,14 @@ export function MapPanel({ data }: MapPanelProps) {
 
     const initMap = async () => {
       try {
+        // Check WebGL support before loading Mapbox
+        const canvas = document.createElement("canvas");
+        const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        if (!gl) {
+          setMapError("Map not supported on this device");
+          return;
+        }
+
         const mapboxgl = (await import("mapbox-gl")).default;
 
         const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
