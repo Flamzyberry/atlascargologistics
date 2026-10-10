@@ -9,7 +9,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Courier Express";
+const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -66,10 +66,7 @@ export const metadata: Metadata = {
     title: `${COMPANY_NAME} - Global Shipping & Logistics Solutions`,
     description: `${COMPANY_NAME} provides reliable international and domestic shipping services. Track shipments, get instant quotes, and manage logistics.`,
     images: ["/logo.PNG"],
-    creator: `@${COMPANY_NAME.toLowerCase().replace(/\s+/g, "")}`,
-  },
-  verification: {
-    google: "google-site-verification-code",
+    creator: `@${COMPANY_NAME.toLowerCase().replace(/\\s+/g, "")}`,
   },
   alternates: {
     canonical: "/",
@@ -118,7 +115,7 @@ export default function RootLayout({
               var _smartsupp = _smartsupp || {};
               _smartsupp.key = '5734aa6d7470dd3703a25a64e53cce9c1ef380bf';
               window.smartsupp||(function(d) {
-                var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+                var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[]; 
                 s=d.getElementsByTagName('script')[0];c=d.createElement('script');
                 c.type='text/javascript';c.charset='utf-8';c.async=true;
                 c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
@@ -131,60 +128,55 @@ export default function RootLayout({
         <div className="gtranslate_wrapper" />
 
         {/* Custom styles for GTranslate dropdown widget */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            /* Position wrapper at bottom left */
-            .gtranslate_wrapper {
-              position: fixed !important;
-              bottom: 0 !important;
-              left: 0 !important;
-              z-index: 9999 !important;
-              margin: 0 !important;
-              padding: 0 !important;
-            }
-            
-            /* Style the select dropdown */
-            .gtranslate_wrapper select,
-            .gt_selector {
-              background: #000000 !important;
-              color: #ffffff !important;
-              border: none !important;
-              border-radius: 0 8px 0 0 !important;
-              padding: 6px 10px !important;
-              font-size: 11px !important;
-              cursor: pointer !important;
-              outline: none !important;
-              -webkit-appearance: none !important;
-              -moz-appearance: none !important;
-              appearance: none !important;
-              padding-right: 24px !important;
-              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
-              background-repeat: no-repeat !important;
-              background-position: right 6px center !important;
-            }
-            
-            .gtranslate_wrapper select:hover,
-            .gt_selector:hover {
-              background-color: #222222 !important;
-            }
-            
-            .gtranslate_wrapper select option {
-              background: #000000 !important;
-              color: #ffffff !important;
-              padding: 8px !important;
-            }
-            
-            /* Mobile - smaller */
-            @media (max-width: 640px) {
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              .gtranslate_wrapper {
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                z-index: 9999 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+              }
               .gtranslate_wrapper select,
               .gt_selector {
-                font-size: 10px !important;
-                padding: 5px 8px !important;
-                padding-right: 20px !important;
+                background: #000000 !important;
+                color: #ffffff !important;
+                border: none !important;
+                border-radius: 0 8px 0 0 !important;
+                padding: 6px 10px !important;
+                font-size: 11px !important;
+                cursor: pointer !important;
+                outline: none !important;
+                -webkit-appearance: none !important;
+                -moz-appearance: none !important;
+                appearance: none !important;
+                padding-right: 24px !important;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+                background-repeat: no-repeat !important;
+                background-position: right 6px center !important;
               }
-            }
-          `
-        }} />
+              .gtranslate_wrapper select:hover,
+              .gt_selector:hover {
+                background-color: #222222 !important;
+              }
+              .gtranslate_wrapper select option {
+                background: #000000 !important;
+                color: #ffffff !important;
+                padding: 8px !important;
+              }
+              @media (max-width: 640px) {
+                .gtranslate_wrapper select,
+                .gt_selector {
+                  font-size: 10px !important;
+                  padding: 5px 8px !important;
+                  padding-right: 20px !important;
+                }
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
