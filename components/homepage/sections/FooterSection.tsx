@@ -78,8 +78,7 @@ export function FooterSection() {
               <span className="text-xl font-bold">{companyName}</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Global logistics solutions connecting businesses to 190+ countries. 
-              Fast, reliable, and always on time.
+              Shipping and logistics enquiries, with service options confirmed based on your shipment requirements.
             </p>
             
             {/* Contact Info */}
