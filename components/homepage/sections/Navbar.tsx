@@ -6,11 +6,13 @@ import Link from "next/link";
 import NextImage from "next/image";
 import { Menu, X } from "lucide-react";
 
-const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Courier Express";
+const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Services", href: "#services" },
+  { name: "Track Shipment", href: "/track" },
+  { name: "Get a Quote", href: "/quote" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
 ];
