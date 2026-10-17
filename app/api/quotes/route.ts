@@ -56,7 +56,11 @@ async function handlePost(request: NextRequest): Promise<NextResponse> {
       phone: quoteData.phone,
       origin: quoteData.origin,
       destination: quoteData.destination,
-      packageDetails: quoteData.packageDetails,
+      packageDetails: {
+        ...quoteData.packageDetails,
+        // The public form does not currently ask for declared value; default it to 0.
+        value: quoteData.packageDetails.value ?? 0,
+      },
       serviceType: quoteData.serviceType,
       estimatedPrice: estimation.totalEstimate,
       status: QuoteStatus.PENDING,
