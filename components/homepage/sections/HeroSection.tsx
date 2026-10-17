@@ -90,15 +90,14 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 max-w-2xl leading-relaxed"
           >
-            From air freight to ocean cargo, we provide end-to-end logistics solutions 
-            that connect your business to 180+ countries. Fast, reliable, and always on time.
+            From local deliveries to international freight, ShipX Cargo Logistics helps move your shipments with care, visibility, and dependable support.
           </motion.p>
 
           {/* Tracking Input */}
           <TrackingInput className="max-w-2xl mb-8" />
 
           {/* Secondary CTA */}
-          {/* <motion.div
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -115,7 +114,7 @@ export function HeroSection() {
                 <ArrowRight className="h-4 w-4" />
               </motion.button>
             </Link>
-          </motion.div> */}
+          </motion.div>
         </div>
       </div>
 
