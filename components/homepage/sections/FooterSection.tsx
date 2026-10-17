@@ -46,7 +46,7 @@ interface CompanySettings {
 
 export function FooterSection() {
   const [settings, setSettings] = useState<CompanySettings | null>(null);
-  const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || "Courier Express";
+  const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
   useEffect(() => {
     fetch("/api/settings")
