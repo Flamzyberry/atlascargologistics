@@ -60,7 +60,7 @@ export function HeroSection() {
           >
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-white/90 text-sm font-medium">
-              Trusted by 10,000+ businesses worldwide
+              Shipment enquiries and tracking support
             </span>
           </motion.div>
 
@@ -74,7 +74,7 @@ export function HeroSection() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6"
           >
-            Global Logistics,{" "}
+            Shipping & Logistics,{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
               Delivered
             </span>{" "}
