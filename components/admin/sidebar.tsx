@@ -27,6 +27,7 @@ const navigation = [
   { name: "Carriers", href: "/admin/carriers", icon: Truck },
   { name: "Quotes", href: "/admin/quotes", icon: FileText },
   { name: "Emails", href: "/admin/emails", icon: Mail },
+  { name: "Contact Inbox", href: "/admin/contact-inbox", icon: Mail },
   { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
