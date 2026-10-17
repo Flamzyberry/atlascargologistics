@@ -20,7 +20,7 @@ import {
 import { Navbar, FooterSection } from "@/components/homepage";
 import { Preloader } from "@/components/ui/Preloader";
 
-const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Bayanchor Logistics";
+const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
 function TrackingPageContent() {
   const searchParams = useSearchParams();
