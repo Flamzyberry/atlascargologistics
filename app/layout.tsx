@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: `${COMPANY_NAME} - Global Shipping & Logistics Solutions`,
-  description: `${COMPANY_NAME} provides reliable international and domestic shipping services. Track shipments, get instant quotes, and manage logistics with our advanced platform. Fast delivery to 190+ countries.`,
+  description: `${COMPANY_NAME} provides reliable international and domestic shipping services. Track shipments, get instant quotes, and manage logistics with our advanced platform. Reliable shipping options for domestic and international freight.`,
   keywords: [
     "shipping",
     "logistics",
