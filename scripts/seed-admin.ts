@@ -1,116 +1,70 @@
 /**
- * Admin User Seed Script
+ * Create the initial administrator securely.
  *
- * Creates an initial admin user for the platform.
- * Run with: npx ts-node --compiler-options '{"module":"CommonJS"}' scripts/seed-admin.ts
+ * Required environment variables in .env.local:
+ *   MONGODB_URI, ADMIN_NAME, ADMIN_EMAIL, ADMIN_PASSWORD
  *
- * Or add to package.json scripts and run: npm run seed:admin
+ * Run locally:
+ *   npx ts-node --compiler-options '{"module":"CommonJS"}' scripts/seed-admin.ts
+ *
+ * No default email or password is stored in source control.
  */
-
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import * as dotenv from "dotenv";
 
-// Load environment variables
 dotenv.config({ path: ".env.local" });
 
 const MONGODB_URI = process.env.MONGODB_URI;
+const ADMIN_NAME = process.env.ADMIN_NAME?.trim();
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-if (!MONGODB_URI) {
-  console.error("❌ MONGODB_URI environment variable is not set");
-  process.exit(1);
-}
+async function main() {
+  if (!MONGODB_URI || !ADMIN_NAME || !ADMIN_EMAIL || !ADMIN_PASSWORD) {
+    throw new Error(
+      "Set MONGODB_URI, ADMIN_NAME, ADMIN_EMAIL, and ADMIN_PASSWORD in .env.local before running this script."
+    );
+  }
+  if (ADMIN_PASSWORD.length < 12) {
+    throw new Error("ADMIN_PASSWORD must be at least 12 characters long.");
+  }
+  if (!/^\S+@\S+\.\S+$/.test(ADMIN_EMAIL)) {
+    throw new Error("ADMIN_EMAIL must be a valid email address.");
+  }
 
-// Define User schema inline to avoid import issues
-const UserSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true, lowercase: true },
-    passwordHash: { type: String, required: true },
-    role: { type: String, default: "ADMIN" },
-  },
-  { timestamps: true }
-);
-
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
-
-interface AdminConfig {
-  name: string;
-  email: string;
-  password: string;
-}
-
-// Default admin configuration - CHANGE THESE IN PRODUCTION
-const DEFAULT_ADMIN: AdminConfig = {
-  name: "Admin User",
-  email: "info@atlascargologistics.pro",
-  password: "@Newpass12", // Change this immediately after first login!
-};
-
-async function seedAdmin(config: AdminConfig = DEFAULT_ADMIN): Promise<void> {
+  await mongoose.connect(MONGODB_URI);
   try {
-    console.log("🔄 Connecting to MongoDB...");
-    await mongoose.connect(MONGODB_URI!);
-    console.log("✅ Connected to MongoDB");
+    const UserSchema = new mongoose.Schema(
+      {
+        name: { type: String, required: true },
+        email: { type: String, required: true, unique: true, lowercase: true },
+        passwordHash: { type: String, required: true },
+        role: { type: String, enum: ["ADMIN"], default: "ADMIN", required: true },
+      },
+      { timestamps: true }
+    );
+    const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
-    // Check if admin already exists
-    const existingAdmin = await User.findOne({ email: config.email.toLowerCase() });
-
-    if (existingAdmin) {
-      console.log(`⚠️  Admin user already exists: ${config.email}`);
-      console.log("   To create a new admin, use a different email");
-      await mongoose.disconnect();
-      return;
+    const existing = await User.findOne({ email: ADMIN_EMAIL });
+    if (existing) {
+      throw new Error("An account with ADMIN_EMAIL already exists. No changes were made.");
     }
 
-    // Hash password
-    const saltRounds = 12;
-    const passwordHash = await bcrypt.hash(config.password, saltRounds);
-
-    // Create admin user
-    const admin = await User.create({
-      name: config.name,
-      email: config.email.toLowerCase(),
+    const passwordHash = await bcrypt.hash(ADMIN_PASSWORD, 12);
+    await User.create({
+      name: ADMIN_NAME,
+      email: ADMIN_EMAIL,
       passwordHash,
       role: "ADMIN",
     });
-
-    console.log("✅ Admin user created successfully!");
-    console.log("   Name:", admin.name);
-    console.log("   Email:", admin.email);
-    console.log("");
-    console.log("⚠️  IMPORTANT: Change the default password immediately after first login!");
-    console.log("");
-
+    console.log("Administrator account created. Keep the password private.");
+  } finally {
     await mongoose.disconnect();
-    console.log("✅ Database connection closed");
-  } catch (error) {
-    console.error("❌ Error seeding admin:", error);
-    await mongoose.disconnect();
-    process.exit(1);
   }
 }
 
-// Parse command line arguments for custom admin
-const args = process.argv.slice(2);
-const customConfig: Partial<AdminConfig> = {};
-
-for (let i = 0; i < args.length; i += 2) {
-  const key = args[i]?.replace("--", "");
-  const value = args[i + 1];
-
-  if (key && value) {
-    if (key === "name" || key === "email" || key === "password") {
-      customConfig[key] = value;
-    }
-  }
-}
-
-// Merge with defaults
-const finalConfig: AdminConfig = {
-  ...DEFAULT_ADMIN,
-  ...customConfig,
-};
-
-// Run the seed function
-seedAdmin(finalConfig);
+main().catch((error) => {
+  console.error("Admin creation failed:", error instanceof Error ? error.message : "Unknown error");
+  process.exitCode = 1;
+});

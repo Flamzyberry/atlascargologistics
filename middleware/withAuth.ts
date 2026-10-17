@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { ApiResponse } from "@/types";
+import { ApiResponse, UserRole } from "@/types";
 import { checkRateLimit } from "./rateLimit";
 
 /**
@@ -53,6 +53,15 @@ export function withAuth(handler: AuthenticatedHandler) {
         return NextResponse.json(response, { status: 401 });
       }
 
+      // Authentication alone is not sufficient: verify admin role for every protected API.
+      if (session.user.role !== UserRole.ADMIN) {
+        const response: ApiResponse = {
+          success: false,
+          error: "Forbidden - Admin access required",
+        };
+        return NextResponse.json(response, { status: 403 });
+      }
+
       // Attach user to context and call the handler
       const res = await handler(request, {
         params: context.params,
@@ -91,7 +100,7 @@ export async function getAuthUser(): Promise<{
   try {
     const session = await auth();
 
-    if (!session || !session.user) {
+    if (!session || !session.user || session.user.role !== UserRole.ADMIN) {
       return null;
     }
 
