@@ -16,8 +16,8 @@ export async function GET() {
       success: true,
       data: {
         companyName: settings.companyName || process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics",
-        officeAddress: settings.officeAddress || "California, USA",
-        phone: settings.phone || "+1 (910) 434-5664",
+        officeAddress: settings.officeAddress || "",
+        phone: settings.phone || "",
         email: settings.email || "",
         website: settings.website,
       },
