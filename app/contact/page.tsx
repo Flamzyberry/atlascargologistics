@@ -41,18 +41,10 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitStatus("success");
-      setIsSubmitting(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-    }, 1500);
+    // The form is not connected to a message-delivery service yet.
+    // Do not tell visitors their message was sent when it was not.
+    setSubmitStatus("error");
+    setIsSubmitting(false);
   };
 
   return (
@@ -171,6 +163,15 @@ export default function ContactPage() {
                   </div>
                 )}
 
+                {submitStatus === "error" && (
+                  <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">
+                    <AlertCircle className="h-5 w-5 text-amber-700 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-amber-800 font-medium">Contact form setup is in progress.</p>
+                      <p className="text-amber-700 text-sm">This form is not yet connected to message delivery, so your message has not been sent. Please try again later.</p>
+                    </div>
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
