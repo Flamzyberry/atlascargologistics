@@ -24,6 +24,7 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [emailDelivery, setEmailDelivery] = useState("not_configured");
 
   useEffect(() => {
     fetch("/api/settings")
@@ -41,10 +42,25 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
-    // The form is not connected to a message-delivery service yet.
-    // Do not tell visitors their message was sent when it was not.
-    setSubmitStatus("error");
-    setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Failed to submit your message.");
+      }
+      setEmailDelivery(result.data?.emailDelivery || "not_configured");
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -157,8 +173,8 @@ export default function ContactPage() {
                   <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-green-700 font-medium">Message sent successfully!</p>
-                      <p className="text-green-600 text-sm">We'll get back to you soon.</p>
+                      <p className="text-green-700 font-medium">Your message has been received.</p>
+                      <p className="text-green-600 text-sm">{emailDelivery === "sent" ? "It has also been emailed to our team. We will get back to you soon." : "It is saved in our website inbox. Email notifications are still being configured, but your message was not lost."}</p>
                     </div>
                   </div>
                 )}
@@ -167,8 +183,8 @@ export default function ContactPage() {
                   <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">
                     <AlertCircle className="h-5 w-5 text-amber-700 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-amber-800 font-medium">Contact form setup is in progress.</p>
-                      <p className="text-amber-700 text-sm">This form is not yet connected to message delivery, so your message has not been sent. Please try again later.</p>
+                      <p className="text-amber-800 font-medium">We could not submit your message.</p>
+                      <p className="text-amber-700 text-sm">Please check your connection and try again. Your message has not been confirmed as saved.</p>
                     </div>
                   </div>
                 )}
