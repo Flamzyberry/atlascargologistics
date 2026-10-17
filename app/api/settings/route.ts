@@ -15,10 +15,10 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       data: {
-        companyName: settings.companyName,
-        officeAddress: settings.officeAddress,
-        phone: settings.phone,
-        email: settings.email,
+        companyName: settings.companyName || process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics",
+        officeAddress: settings.officeAddress || "California, USA",
+        phone: settings.phone || "+1 (910) 434-5664",
+        email: settings.email || "",
         website: settings.website,
       },
     });
