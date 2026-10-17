@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Navbar, FooterSection } from "@/components/homepage";
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
 
-const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Courier Express";
+const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
 interface CompanySettings {
   email: string;
