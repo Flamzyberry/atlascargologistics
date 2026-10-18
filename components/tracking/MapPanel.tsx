@@ -29,6 +29,8 @@ export function MapPanel({ data }: MapPanelProps) {
   // Initialize map
   useEffect(() => {
     if (!mapContainer.current || map.current) return;
+    setMapError(null);
+    setMapLoaded(false);
 
     if (!originCoords && !destCoords && !currentCoords) {
       setMapError("No coordinates available for this shipment");
