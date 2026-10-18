@@ -42,6 +42,25 @@ function TrackingPageContent() {
     }
   }, [initialCode]);
 
+  // Refresh the tracking record periodically while a shipment is open so newly
+  // reported GPS coordinates and status events appear without a manual reload.
+  useEffect(() => {
+    if (trackingState !== "success" || !currentCode) return;
+
+    const refreshTracking = async () => {
+      try {
+        const response = await fetch(`/api/tracking?code=${encodeURIComponent(currentCode)}`, { cache: "no-store" });
+        const result = await response.json();
+        if (response.ok && result.success) setTrackingData(result.data);
+      } catch {
+        // Keep the last known tracking information visible during temporary network issues.
+      }
+    };
+
+    const intervalId = window.setInterval(refreshTracking, 30_000);
+    return () => window.clearInterval(intervalId);
+  }, [trackingState, currentCode]);
+
 
   const handleTrack = async (code: string) => {
     if (!code.trim()) return;
