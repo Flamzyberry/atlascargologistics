@@ -9,7 +9,7 @@ interface PreloaderProps {
 
 export function Preloader({ onComplete }: PreloaderProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || "Courier Express";
+  const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
   useEffect(() => {
     const timer = setTimeout(() => {
