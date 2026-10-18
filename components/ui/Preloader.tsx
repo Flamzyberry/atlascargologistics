@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 
 interface PreloaderProps {
   onComplete?: () => void;
@@ -38,14 +37,10 @@ export function Preloader({ onComplete }: PreloaderProps) {
               className="mb-6 relative w-32 h-32 mx-auto"
             >
               <div className="absolute inset-0 bg-white/10 rounded-2xl blur-xl"></div>
-              <div className="relative w-full h-full bg-white rounded-2xl p-4 shadow-2xl">
-                <Image
-                  src="/logo.PNG"
-                  alt={`${companyName} Logo`}
-                  fill
-                  className="object-contain p-2"
-                  priority
-                />
+              <div className="relative w-full h-full bg-white rounded-2xl p-4 shadow-2xl flex items-center justify-center">
+                <div className="w-20 h-20 rounded-2xl bg-orange-500 flex items-center justify-center text-white text-3xl font-extrabold" aria-label={`${companyName} brand mark`}>
+                  SX
+                </div>
               </div>
             </motion.div>
 
