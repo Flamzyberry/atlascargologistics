@@ -52,20 +52,11 @@ export const metadata: Metadata = {
     siteName: COMPANY_NAME,
     title: `${COMPANY_NAME} - Global Shipping & Logistics Solutions`,
     description: `${COMPANY_NAME} provides reliable international and domestic shipping services. Track shipments, get instant quotes, and manage logistics with our advanced platform.`,
-    images: [
-      {
-        url: "/logo.PNG",
-        width: 1200,
-        height: 630,
-        alt: `${COMPANY_NAME} Logo`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${COMPANY_NAME} - Global Shipping & Logistics Solutions`,
     description: `${COMPANY_NAME} provides reliable international and domestic shipping services. Track shipments, get instant quotes, and manage logistics.`,
-    images: ["/logo.PNG"],
     creator: `@${COMPANY_NAME.toLowerCase().replace(/\\s+/g, "")}`,
   },
   alternates: {
