@@ -225,6 +225,7 @@ export interface IShipment {
   // Status
   status: ShipmentStatus;
   currentLocation?: string;
+  currentLocationCoordinates?: { latitude?: number; longitude?: number; lat?: number; lng?: number; recordedAt?: Date };
   estimatedDeliveryDate?: Date;
   trackingEvents: Types.ObjectId[];
   packageImages: PackageImage[];
