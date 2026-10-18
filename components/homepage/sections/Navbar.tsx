@@ -9,12 +9,12 @@ const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logist
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Services", href: "#services" },
+  { name: "Services", href: "/#services" },
   { name: "Track Shipment", href: "/track" },
   { name: "Get a Quote", href: "/quote" },
   { name: "Freight & Payment", href: "/freight-payment" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "/#about" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
