@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Image from "next/image";
 import {
   TrackingHero,
   ShipmentSummary,
@@ -196,14 +195,12 @@ export default function TrackingPage() {
       <Suspense fallback={
         <main className="min-h-screen bg-white">
           <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50">
-            <Image 
-              src="/logo.PNG" 
-              alt={COMPANY_NAME} 
-              width={100} 
-              height={100} 
-              className="object-contain mb-6"
-              priority
-            />
+            <div
+              className="w-16 h-16 rounded-2xl bg-orange-500 flex items-center justify-center text-white font-extrabold text-2xl mb-6"
+              aria-label={`${COMPANY_NAME} brand mark`}
+            >
+              SX
+            </div>
             <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
             <p className="mt-4 text-gray-600 text-sm">Loading...</p>
           </div>
