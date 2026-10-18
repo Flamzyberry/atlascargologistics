@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import NextImage from "next/image";
 import { Package, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
 const footerLinks = {
@@ -67,13 +66,8 @@ export function FooterSection() {
           {/* Brand Column */}
           <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="relative w-10 h-10 rounded-xl bg-white overflow-hidden">
-                <NextImage
-                  src="/logo.PNG"
-                  alt={`${companyName} Logo`}
-                  fill
-                  className="object-contain p-1"
-                />
+              <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center text-white font-extrabold text-lg" aria-label={`${companyName} brand mark`}>
+                SX
               </div>
               <span className="text-xl font-bold">{companyName}</span>
             </Link>
