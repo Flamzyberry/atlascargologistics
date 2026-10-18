@@ -24,12 +24,13 @@ export function MapPanel({ data }: MapPanelProps) {
   // Use pre-stored coordinates from shipment data (geocoded at creation/update time)
   const originCoords: Coordinates | null = data.originLocation?.coordinates || null;
   const destCoords: Coordinates | null = data.destinationLocation?.coordinates || null;
+  const currentCoords: Coordinates | null = data.currentLocationCoords ? { lat: data.currentLocationCoords.lat, lng: data.currentLocationCoords.lng } : null;
 
   // Initialize map
   useEffect(() => {
     if (!mapContainer.current || map.current) return;
 
-    if (!originCoords && !destCoords) {
+    if (!originCoords && !destCoords && !currentCoords) {
       setMapError("No coordinates available for this shipment");
       return;
     }
@@ -55,13 +56,15 @@ export function MapPanel({ data }: MapPanelProps) {
         mapboxgl.accessToken = token;
 
         // Calculate center
-        const center: [number, number] = originCoords && destCoords
-          ? [(originCoords.lng + destCoords.lng) / 2, (originCoords.lat + destCoords.lat) / 2]
-          : originCoords
-            ? [originCoords.lng, originCoords.lat]
-            : destCoords
-              ? [destCoords.lng, destCoords.lat]
-              : [0, 0];
+        const center: [number, number] = currentCoords
+          ? [currentCoords.lng, currentCoords.lat]
+          : originCoords && destCoords
+            ? [(originCoords.lng + destCoords.lng) / 2, (originCoords.lat + destCoords.lat) / 2]
+            : originCoords
+              ? [originCoords.lng, originCoords.lat]
+              : destCoords
+                ? [destCoords.lng, destCoords.lat]
+                : [0, 0];
 
         map.current = new mapboxgl.Map({
           container: mapContainer.current!,
@@ -129,6 +132,19 @@ export function MapPanel({ data }: MapPanelProps) {
               )
               .addTo(map.current!);
             allCoords.push([destCoords.lng, destCoords.lat]);
+          }
+
+
+          // Add the latest admin/driver-reported GPS position. This is a real
+          // stored coordinate, not a simulated point along the route.
+          if (currentCoords) {
+            new mapboxgl.Marker({ color: "#f97316" })
+              .setLngLat([currentCoords.lng, currentCoords.lat])
+              .setPopup(new mapboxgl.Popup({ offset: 24 }).setText(
+                `Latest reported location: ${data.currentLocation || "Shipment"}${data.currentLocationCoords?.recordedAt ? " · " + new Date(data.currentLocationCoords.recordedAt).toLocaleString() : ""}`
+              ))
+              .addTo(map.current!);
+            allCoords.push([currentCoords.lng, currentCoords.lat]);
           }
 
           // Draw route arc line with progress
@@ -246,10 +262,10 @@ export function MapPanel({ data }: MapPanelProps) {
         map.current = null;
       }
     };
-  }, [originCoords, destCoords, data.origin, data.destination, data.status]);
+  }, [originCoords?.lat, originCoords?.lng, destCoords?.lat, destCoords?.lng, currentCoords?.lat, currentCoords?.lng, data.currentLocation, data.currentLocationCoords?.recordedAt, data.origin, data.destination, data.status]);
 
   // Error or no coordinates fallback
-  if (mapError || (!originCoords && !destCoords)) {
+  if (mapError || (!originCoords && !destCoords && !currentCoords)) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -311,7 +327,7 @@ export function MapPanel({ data }: MapPanelProps) {
     >
       <div className="px-4 py-3 sm:px-6 sm:py-4 border-b border-gray-100">
         <h3 className="text-base sm:text-lg font-bold text-gray-900">Shipment Route</h3>
-        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Live tracking visualization</p>
+        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">{currentCoords ? `Latest reported GPS position${data.currentLocationCoords?.recordedAt ? ` · ${new Date(data.currentLocationCoords.recordedAt).toLocaleString()}` : ""}` : "Route overview — no current GPS position has been reported yet"}</p>
       </div>
 
       <div className="relative">
