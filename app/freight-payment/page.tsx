@@ -51,7 +51,7 @@ export default function FreightPaymentPage() {
             <Link href="/quote" className="inline-flex items-center gap-2 rounded-lg bg-sky-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-300">
               Request a freight quote <ArrowRight size={18} />
             </Link>
-            <Link href="/tracking" className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3 font-semibold text-white transition hover:bg-white/10">
+            <Link href="/track" className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3 font-semibold text-white transition hover:bg-white/10">
               Track a shipment
             </Link>
           </div>
