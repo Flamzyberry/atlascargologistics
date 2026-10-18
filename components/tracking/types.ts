@@ -93,7 +93,7 @@ export interface TrackingData {
   // Location coordinates for map
   originLocation?: LocationInfo;
   destinationLocation?: LocationInfo;
-  currentLocationCoords?: { lat: number; lng: number };
+  currentLocationCoords?: { lat: number; lng: number; recordedAt?: string };
 }
 
 export type TrackingState = "idle" | "loading" | "success" | "error" | "not_found";
