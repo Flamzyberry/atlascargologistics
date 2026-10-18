@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import NextImage from "next/image";
 import { Menu, X } from "lucide-react";
 
 const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
@@ -28,14 +27,8 @@ export function Navbar() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white">
-                <NextImage
-                  src="/logo.PNG"
-                  alt={`${COMPANY_NAME} Logo`}
-                  fill
-                  className="object-contain p-1"
-                  priority
-                />
+              <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center text-white font-extrabold text-lg" aria-label={`${COMPANY_NAME} brand mark`}>
+                SX
               </div>
               <span className="text-xl font-bold text-white">
                 {COMPANY_NAME}
