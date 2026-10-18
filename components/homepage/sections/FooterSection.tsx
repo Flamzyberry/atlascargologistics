@@ -146,19 +146,14 @@ export function FooterSection() {
             <p className="text-gray-400 text-sm mb-4">
               Subscribe to our newsletter for the latest updates and offers.
             </p>
-            <form className="space-y-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full h-10 px-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
-              />
-              <button
-                type="submit"
-                className="w-full h-10 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors text-sm"
-              >
-                Subscribe
-              </button>
-            </form>
+            <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+              <p className="text-gray-300 text-sm">
+                Newsletter subscriptions are not available yet. Please use our Contact Us page for updates and enquiries.
+              </p>
+              <Link href="/contact" className="inline-block mt-3 text-orange-400 hover:text-orange-300 text-sm font-medium">
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -180,19 +175,7 @@ export function FooterSection() {
               </Link>
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-orange-500 flex items-center justify-center transition-colors"
-                  aria-label={social.name}
-                >
-                  <social.icon className="h-4 w-4" />
-                </a>
-              ))}
-            </div>
+            {/* Social links are hidden until official ShipX profile URLs are configured. */}
           </div>
         </div>
       </div>
