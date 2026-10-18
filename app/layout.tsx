@@ -97,24 +97,6 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`}>
         <Providers>{children}</Providers>
 
-        {/* Smartsupp Live Chat Widget */}
-        <Script
-          id="smartsupp-widget"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              var _smartsupp = _smartsupp || {};
-              _smartsupp.key = '5734aa6d7470dd3703a25a64e53cce9c1ef380bf';
-              window.smartsupp||(function(d) {
-                var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[]; 
-                s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-                c.type='text/javascript';c.charset='utf-8';c.async=true;
-                c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-              })(document);
-            `,
-          }}
-        />
-
         {/* GTranslate Widget Container */}
         <div className="gtranslate_wrapper" />
 
