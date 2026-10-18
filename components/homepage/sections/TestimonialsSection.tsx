@@ -4,7 +4,7 @@ import { AnimatedSection, StaggerWrapper, fadeInUp } from "../motion";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 
-const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Courier Express";
+const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
 const getTestimonials = (companyName: string) => [
   {
