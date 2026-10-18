@@ -1,7 +1,7 @@
 {
-  "name": "Courier Express - Global Shipping & Logistics",
-  "short_name": "Courier Express",
-  "description": "Track shipments, get instant quotes, and manage logistics with our advanced platform",
+  "name": "ShipX Cargo Logistics - Global Shipping & Logistics",
+  "short_name": "ShipX Cargo",
+  "description": "Track shipments, request shipping quotes, and explore ShipX Cargo Logistics services.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
