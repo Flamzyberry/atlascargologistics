@@ -35,6 +35,7 @@ interface TrackingResponse {
   origin: string;
   destination: string;
   currentLocation?: string;
+  currentLocationCoords?: { lat: number; lng: number; recordedAt?: Date };
   estimatedDeliveryDate?: string;
   sender: {
     name: string;
@@ -143,6 +144,11 @@ async function handleGet(request: NextRequest): Promise<NextResponse> {
       origin: shipment.origin,
       destination: shipment.destination,
       currentLocation: shipment.currentLocation,
+      currentLocationCoords: shipment.currentLocationCoordinates && (shipment.currentLocationCoordinates.latitude != null || shipment.currentLocationCoordinates.lat != null) && (shipment.currentLocationCoordinates.longitude != null || shipment.currentLocationCoordinates.lng != null) ? {
+        lat: Number(shipment.currentLocationCoordinates.latitude ?? shipment.currentLocationCoordinates.lat),
+        lng: Number(shipment.currentLocationCoordinates.longitude ?? shipment.currentLocationCoordinates.lng),
+        recordedAt: shipment.currentLocationCoordinates.recordedAt,
+      } : undefined,
       estimatedDeliveryDate: shipment.estimatedDeliveryDate
         ? shipment.estimatedDeliveryDate.toISOString().split("T")[0]
         : undefined,
