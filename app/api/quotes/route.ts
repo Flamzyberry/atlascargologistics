@@ -28,6 +28,12 @@ async function handlePost(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
 
+    // The public quote form does not collect a declared package value yet.
+    // Apply the default BEFORE validation because the database schema requires it.
+    if (body && typeof body === "object" && body.packageDetails && typeof body.packageDetails === "object" && body.packageDetails.value == null) {
+      body.packageDetails.value = 0;
+    }
+
     // Validate input
     const validation = validateData(createQuoteSchema, body);
 
