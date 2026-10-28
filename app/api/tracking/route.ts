@@ -152,17 +152,14 @@ async function handleGet(request: NextRequest): Promise<NextResponse> {
       estimatedDeliveryDate: shipment.estimatedDeliveryDate
         ? shipment.estimatedDeliveryDate.toISOString().split("T")[0]
         : undefined,
+      // Public tracking pages must not expose private contact details or street addresses.
       sender: {
-        name: shipment.sender.name,
-        address: shipment.sender.address,
-        phone: shipment.sender.phone,
-        email: shipment.sender.email,
+        name: "Protected for privacy",
+        address: "",
       },
       receiver: {
-        name: shipment.receiver.name,
-        address: shipment.receiver.address,
-        phone: shipment.receiver.phone,
-        email: shipment.receiver.email,
+        name: "Protected for privacy",
+        address: "",
       },
       package: {
         weight: shipment.package.weight,
@@ -173,10 +170,7 @@ async function handleGet(request: NextRequest): Promise<NextResponse> {
           height: shipment.package.dimensions.height,
           unit: "cm",
         } : undefined,
-        declaredValue: shipment.package.value ? {
-          amount: shipment.package.value,
-          currency: shipment.package.currency || "USD",
-        } : undefined,
+        // Declared monetary value is private shipment data; do not expose it publicly.
       },
       serviceType: shipment.serviceType,
       consignmentType: shipment.consignmentType,
@@ -219,11 +213,7 @@ async function handleGet(request: NextRequest): Promise<NextResponse> {
       })),
       createdAt: shipment.createdAt,
       updatedAt: shipment.updatedAt,
-      packageImages: shipment.packageImages?.map((img) => ({
-        url: img.url,
-        publicId: img.publicId,
-        uploadedAt: img.uploadedAt,
-      })),
+      // Package images may contain shipping labels or personal details; keep them private.
     };
 
     const response: ApiResponse<TrackingResponse> = {
