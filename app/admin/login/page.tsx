@@ -69,7 +69,7 @@ function LoginForm() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <div className="animate-pulse">
-          <Image src="/logo.PNG" alt="Courier" width={48} height={48} className="rounded-xl" />
+          <Image src="/logo.PNG" alt="ShipX Cargo Logistics" width={48} height={48} className="rounded-xl" />
         </div>
       </div>
     );
@@ -80,7 +80,7 @@ function LoginForm() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8 flex flex-col items-center">
-          <Image src="/logo.PNG" alt="Courier" width={56} height={56} className="rounded-2xl mb-4 shadow-lg" />
+          <Image src="/logo.PNG" alt="ShipX Cargo Logistics" width={56} height={56} className="rounded-2xl mb-4 shadow-lg" />
           <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
           <p className="text-gray-500 mt-1">Sign in to your admin account</p>
         </div>
@@ -105,7 +105,7 @@ function LoginForm() {
                   {...register("email")}
                   type="email"
                   id="email"
-                  placeholder="admin@courier.com"
+                  placeholder="admin@example.com"
                   className={cn(
                     "flex h-11 w-full rounded-lg border bg-white pl-10 pr-4 text-sm text-gray-900",
                     "placeholder:text-gray-400",
@@ -192,7 +192,7 @@ function LoginLoading() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
       <div className="animate-pulse">
-        <Image src="/logo.PNG" alt="Courier" width={48} height={48} className="rounded-xl" />
+        <Image src="/logo.PNG" alt="ShipX Cargo Logistics" width={48} height={48} className="rounded-xl" />
       </div>
     </div>
   );
