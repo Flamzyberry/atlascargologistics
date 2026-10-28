@@ -54,6 +54,11 @@ export const RATE_LIMIT_CONFIGS = {
     maxRequests: 10,
     windowMs: 60 * 1000, // 10 requests per minute
   },
+  // Public contact endpoint - tighter limit to reduce spam
+  contact: {
+    maxRequests: 5,
+    windowMs: 60 * 1000, // 5 requests per minute
+  },
   // Mapbox proxy endpoints
   mapbox: {
     maxRequests: 60,
