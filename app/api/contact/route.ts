@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import ContactMessage from "@/models/ContactMessage";
+import { withRateLimit } from "@/middleware/rateLimit";
 
 export const runtime = "nodejs";
 
-export async function POST(request: NextRequest) {
+async function handlePost(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json();
     const name = typeof body.name === "string" ? body.name.trim() : "";
@@ -59,3 +60,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, error: "We couldn't save your message right now. Please try again later." }, { status: 500 });
   }
 }
+
+
+// Limit public contact submissions to reduce spam while preserving the existing form API.
+export const POST = withRateLimit(handlePost, "contact");
