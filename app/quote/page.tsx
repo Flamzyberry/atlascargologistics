@@ -116,10 +116,10 @@ export default function QuotePage() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Get a Shipping Quote
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
               Fill out the form below to receive an instant estimate for your shipment.
               Our team will review and provide a detailed quote within 24 hours.
             </p>
@@ -164,7 +164,7 @@ export default function QuotePage() {
             </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-8">
+          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-5 sm:p-8 space-y-8">
             {/* Contact Information */}
             <div>
               <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
