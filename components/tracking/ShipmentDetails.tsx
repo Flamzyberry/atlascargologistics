@@ -66,7 +66,7 @@ export function ShipmentDetails({ data }: ShipmentDetailsProps) {
                     {data.sender.name}
                   </p>
                   <p className="text-sm text-gray-600 mb-1">
-                    {data.sender.address}
+                    {data.sender.address || "Address hidden for privacy"}
                   </p>
                   {data.sender.phone && (
                     <p className="text-sm text-gray-500">{data.sender.phone}</p>
@@ -86,7 +86,7 @@ export function ShipmentDetails({ data }: ShipmentDetailsProps) {
                     {data.receiver.name}
                   </p>
                   <p className="text-sm text-gray-600 mb-1">
-                    {data.receiver.address}
+                    {data.receiver.address || "Address hidden for privacy"}
                   </p>
                   {data.receiver.phone && (
                     <p className="text-sm text-gray-500">{data.receiver.phone}</p>
