@@ -18,7 +18,7 @@ import Image from "next/image";
 import { StatusBadge } from "./StatusBadge";
 import type { TrackingData } from "./types";
 
-const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Bayanchor Logistics";
+const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
 interface ShipmentSummaryProps {
   data: TrackingData;
