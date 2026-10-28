@@ -10,7 +10,7 @@ import { Topbar } from "./topbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorBoundary } from "@/components/error-boundary";
 
-const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "Courier Express";
+const COMPANY_NAME = process.env.NEXT_PUBLIC_COMPANY_NAME || "ShipX Cargo Logistics";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
