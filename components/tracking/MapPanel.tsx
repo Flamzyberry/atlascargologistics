@@ -50,12 +50,19 @@ export function MapPanel({ data }: MapPanelProps) {
         const mapboxgl = (await import("mapbox-gl")).default;
 
         const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-        if (!token) {
-          setMapError("Map not configured");
-          return;
-        }
-
-        mapboxgl.accessToken = token;
+        if (token) mapboxgl.accessToken = token;
+        const mapStyle = token ? "mapbox://styles/mapbox/streets-v12" : {
+          version: 8 as const,
+          sources: {
+            osm: {
+              type: "raster" as const,
+              tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+              tileSize: 256,
+              attribution: "© OpenStreetMap contributors",
+            },
+          },
+          layers: [{ id: "osm-tiles", type: "raster" as const, source: "osm" }],
+        };
 
         // Calculate center
         const center: [number, number] = currentCoords
@@ -70,7 +77,7 @@ export function MapPanel({ data }: MapPanelProps) {
 
         map.current = new mapboxgl.Map({
           container: mapContainer.current!,
-          style: "mapbox://styles/mapbox/streets-v12",
+          style: mapStyle,
           center,
           zoom: 3,
           attributionControl: false,
