@@ -144,13 +144,13 @@ export function MapPanel({ data }: MapPanelProps) {
           }
 
 
-          // Add the latest admin-updated coordinate. It is stored location data,
-          // not verified live GPS or a simulated point along the route.
+          // Add the latest admin/driver-reported GPS position. This is a real
+          // stored coordinate, not a simulated point along the route.
           if (currentCoords) {
             new mapboxgl.Marker({ color: "#f97316" })
               .setLngLat([currentCoords.lng, currentCoords.lat])
               .setPopup(new mapboxgl.Popup({ offset: 24 }).setText(
-                `Admin-updated location: ${data.currentLocation || "Shipment"}${data.currentLocationCoords?.recordedAt ? " · " + new Date(data.currentLocationCoords.recordedAt).toLocaleString() : ""}`
+                `Latest reported location: ${data.currentLocation || "Shipment"}${data.currentLocationCoords?.recordedAt ? " · " + new Date(data.currentLocationCoords.recordedAt).toLocaleString() : ""}`
               ))
               .addTo(map.current!);
             allCoords.push([currentCoords.lng, currentCoords.lat]);
@@ -336,7 +336,7 @@ export function MapPanel({ data }: MapPanelProps) {
     >
       <div className="px-4 py-3 sm:px-6 sm:py-4 border-b border-gray-100">
         <h3 className="text-base sm:text-lg font-bold text-gray-900">Shipment Route</h3>
-        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">{currentCoords ? `Admin-updated location · not verified live GPS${data.currentLocationCoords?.recordedAt ? ` · ${new Date(data.currentLocationCoords.recordedAt).toLocaleString()}` : ""}` : "Route overview — no current GPS position has been reported yet"}</p>
+        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">{currentCoords ? `Latest reported GPS position${data.currentLocationCoords?.recordedAt ? ` · ${new Date(data.currentLocationCoords.recordedAt).toLocaleString()}` : ""}` : "Route overview — no current GPS position has been reported yet"}</p>
       </div>
 
       <div className="relative">
