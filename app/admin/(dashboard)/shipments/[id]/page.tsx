@@ -693,10 +693,6 @@ export default function ShipmentDetailPage() {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" onClick={() => router.push(`/admin/shipments/${id}/tracking`)}>
-            <MapPin className="h-4 w-4 mr-2" />
-            GPS Control
-          </Button>
           <Button variant="outline" onClick={() => setShowStatusModal(true)}>
             <Truck className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">Update</span> Status
