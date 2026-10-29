@@ -45,17 +45,20 @@ function LoginForm() {
     setIsLoading(true);
 
     try {
+      // Let NextAuth complete the cookie/session write before navigating.
+      // Client-side router.push immediately after redirect:false can race the
+      // SessionProvider and send a valid login straight back to this page.
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        redirect: false,
+        callbackUrl,
+        redirect: true,
       });
 
+      // With redirect:true, successful sign-in navigates away automatically.
+      // If NextAuth returns here, surface the failure rather than forcing a redirect.
       if (result?.error) {
-        toast.error("Invalid email or password");
-      } else {
-        toast.success("Welcome back!");
-        router.push(callbackUrl);
+        toast.error("Sign-in failed. Check your credentials and try again.");
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
