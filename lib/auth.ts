@@ -76,7 +76,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 hours
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  // NextAuth v5 prefers AUTH_SECRET; keep NEXTAUTH_SECRET as a backwards-compatible fallback.
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+  // Vercel terminates TLS before the app; trust the platform-provided host headers.
+  trustHost: true,
 });
 
 /**
